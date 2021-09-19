@@ -1,4 +1,4 @@
-name: Build and deploy .NET Core application to Function App FunkySix
+﻿name: Build and deploy .NET Core application to Function App FunkySix
 on:
   push:
     branches:
@@ -20,6 +20,24 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    # Delete Below v
+    - name: Setup .NET Core 3.1 for support
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+    - name: DOTNET HACK
+      shell: pwsh
+      run: |
+        $version = Split-Path (Split-Path $ENV:DOTNET_ROOT -Parent) -Leaf;
+        $root = Split-Path (Split-Path $ENV:DOTNET_ROOT -Parent) -Parent;
+        $directories = Get-ChildItem $root | Where-Object { $_.Name -ne $version };
+        foreach ($dir in $directories) {
+        $from = $dir.FullName;
+        $to = "$root/$version";
+        Write-Host Copying from $from to $to;
+        Copy-Item "$from\*" $to -Recurse -Force;
+        }
+      # Delete Above ^
     - name: Setup .NET Core (for inproc extensions)
       uses: actions/setup-dotnet@v1
       with:
