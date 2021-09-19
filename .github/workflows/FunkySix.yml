@@ -7,7 +7,8 @@ env:
   AZURE_FUNCTIONAPP_NAME: FunkySix
   AZURE_FUNCTIONAPP_PACKAGE_PATH: src\HelloVS\.
   CONFIGURATION: Release
-  DOTNET_CORE_VERSION: 5.1.x
+  # Check available releases https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json
+  DOTNET_CORE_VERSION: 6.0.0-rc.1
   WORKING_DIRECTORY: src\HelloVS
   DOTNET_CORE_VERSION_INPROC: ''
 jobs:
