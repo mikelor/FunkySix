@@ -27,7 +27,7 @@ namespace HelloVS
             name = name ?? data?.name;
 
             string responseMessage = string.IsNullOrEmpty(name)
-                ? "Framework {RuntimeInformation.FrameworkDescription} Pass a name in the query string or in the request body for a personalized response."
+                ? $"Framework {RuntimeInformation.FrameworkDescription} Pass a name in the query string or in the request body for a personalized response."
                 : $"Hello, {name}. This HTTP triggered function executed successfully from. Framework {RuntimeInformation.FrameworkDescription}";
 
             return new OkObjectResult(responseMessage);
