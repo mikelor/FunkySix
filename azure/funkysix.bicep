@@ -56,6 +56,7 @@ resource functionAppAppSettings 'Microsoft.Web/sites/config@2021-01-15' = {
   properties:{
     AzureWebJobsStorage: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountResource.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccountResource.id, storageAccountResource.apiVersion).keys[0].value}'
     WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountResource.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccountResource.id, storageAccountResource.apiVersion).keys[0].value}'
+    WEBSITE_CONTENTSHARE: storageAccountResource.name
     //APPINSIGHTS_INSTRUMENTATIONKEY: reference(resourceId('Microsoft.Insights/components', appInsightsName), '2020-02-02-preview').InstrumentationKey
     //APPLICATIONINSIGHTS_CONNECTION_STRING: 'InstrumentationKey=${reference(resourceId('Microsoft.Insights/components', appInsightsName), '2020-02-02-preview').InstrumentationKey}'
     FUNCTIONS_WORKER_RUNTIME: functionRuntime
