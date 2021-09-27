@@ -18,7 +18,7 @@ namespace HelloVS
         [FunctionName("Places")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Description = "The OK response")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
@@ -35,8 +35,15 @@ namespace HelloVS
                 ? $"Framework {RuntimeInformation.FrameworkDescription} Pass a name in the query string or in the request body for a personalized response."
                 : $"Hello, {name}. This HTTP triggered function executed successfully from. Framework {RuntimeInformation.FrameworkDescription}";
 
-            return new OkObjectResult(responseMessage);
+            var place = new Place {City="Columbus", State="OH"};
+            return new OkObjectResult(place);
         }
+    }
+
+    public class Place
+    {
+        public string City { get; set;}
+        public string State { get; set;}
     }
 }
 
